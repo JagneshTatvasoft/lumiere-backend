@@ -1,4 +1,5 @@
 namespace Lumiere.Application.Validators;
+
 using FluentValidation;
 using Lumiere.Application.DTOs.Request.Article;
 using Lumiere.Application.DTOs.Request.Auth;
@@ -13,13 +14,13 @@ public class LoginRequestValidator : AbstractValidator<LoginRequest>
         RuleFor(x => x.Email)
             .NotEmpty().WithMessage("Email is required.")
             .EmailAddress().WithMessage("Invalid email format.");
- 
+
         RuleFor(x => x.Password)
             .NotEmpty().WithMessage("Password is required.")
             .MinimumLength(6).WithMessage("Password must be at least 6 characters.");
     }
 }
- 
+
 public class RegisterRequestValidator : AbstractValidator<RegisterRequest>
 {
     public RegisterRequestValidator()
@@ -28,11 +29,11 @@ public class RegisterRequestValidator : AbstractValidator<RegisterRequest>
             .NotEmpty().WithMessage("Name is required.")
             .MinimumLength(2).WithMessage("Name must be at least 2 characters.")
             .MaximumLength(100);
- 
+
         RuleFor(x => x.Email)
             .NotEmpty().WithMessage("Email is required.")
             .EmailAddress().WithMessage("Invalid email format.");
- 
+
         RuleFor(x => x.Password)
             .NotEmpty().WithMessage("Password is required.")
             .MinimumLength(8).WithMessage("Password must be at least 8 characters.")
@@ -40,28 +41,8 @@ public class RegisterRequestValidator : AbstractValidator<RegisterRequest>
             .Matches(@"\d").WithMessage("Password must contain at least one digit.");
     }
 }
- 
-public class CreateUserRequestValidator : AbstractValidator<CreateUserRequest>
-{
-    public CreateUserRequestValidator()
-    {
-        RuleFor(x => x.Name).NotEmpty().MinimumLength(2).MaximumLength(100);
-        RuleFor(x => x.Email).NotEmpty().EmailAddress();
-        RuleFor(x => x.Password).NotEmpty().MinimumLength(6);
-        RuleFor(x => x.RoleId).InclusiveBetween(1, 2).WithMessage("RoleId must be 1 (User) or 2 (Admin).");
-    }
-}
- 
-public class UpdateUserRequestValidator : AbstractValidator<UpdateUserRequest>
-{
-    public UpdateUserRequestValidator()
-    {
-        RuleFor(x => x.Name).NotEmpty().MinimumLength(2).MaximumLength(100);
-        RuleFor(x => x.Email).NotEmpty().EmailAddress();
-        RuleFor(x => x.RoleId).InclusiveBetween(1, 2);
-    }
-}
- 
+
+
 public class CreateArticleRequestValidator : AbstractValidator<CreateArticleRequest>
 {
     public CreateArticleRequestValidator()
@@ -73,7 +54,7 @@ public class CreateArticleRequestValidator : AbstractValidator<CreateArticleRequ
         RuleFor(x => x.CategoryId).GreaterThan(0).WithMessage("A valid CategoryId is required.");
     }
 }
- 
+
 public class UpdateArticleRequestValidator : AbstractValidator<UpdateArticleRequest>
 {
     public UpdateArticleRequestValidator()
@@ -85,7 +66,7 @@ public class UpdateArticleRequestValidator : AbstractValidator<UpdateArticleRequ
         RuleFor(x => x.CategoryId).GreaterThan(0);
     }
 }
- 
+
 public class CreateCategoryRequestValidator : AbstractValidator<CreateCategoryRequest>
 {
     public CreateCategoryRequestValidator()
@@ -94,7 +75,7 @@ public class CreateCategoryRequestValidator : AbstractValidator<CreateCategoryRe
         RuleFor(x => x.Slug).MaximumLength(100).When(x => x.Slug != null);
     }
 }
- 
+
 public class ToggleFavoriteRequestValidator : AbstractValidator<ToggleFavoriteRequest>
 {
     public ToggleFavoriteRequestValidator()
@@ -102,5 +83,14 @@ public class ToggleFavoriteRequestValidator : AbstractValidator<ToggleFavoriteRe
         RuleFor(x => x.UserId).GreaterThan(0);
         RuleFor(x => x.ArticleId).GreaterThan(0);
         RuleFor(x => x.ReactionType).IsInEnum();
+    }
+}
+
+public class UpdateCategoryRequestValidator : AbstractValidator<UpdateCategoryRequest>
+{
+    public UpdateCategoryRequestValidator()
+    {
+        RuleFor(x => x.Name).NotEmpty().MinimumLength(2).MaximumLength(100);
+        RuleFor(x => x.Slug).MaximumLength(100).When(x => x.Slug != null);
     }
 }

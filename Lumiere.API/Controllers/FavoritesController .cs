@@ -19,7 +19,7 @@ public class FavoritesController : BaseApiController
         _toggleValidator = toggleValidator;
     }
  
-    /// <summary>Toggle a like or dislike reaction on an article.</summary>
+    /// <summary> Toggle a like or dislike reaction on an article. </summary>
     [HttpPost("toggle")]
     [Authorize]
     public async Task<IActionResult> Toggle([FromBody] ToggleFavoriteRequest request, CancellationToken ct)
@@ -36,7 +36,7 @@ public class FavoritesController : BaseApiController
         return HandleResponse(result);
     }
  
-    /// <summary>Get all favorites (likes + dislikes) for a user.</summary>
+    /// <summary > Get all favorites (likes + dislikes) for a user. </summary>
     [HttpGet("user/{userId:int}")]
     [Authorize]
     public async Task<IActionResult> GetByUser(int userId, CancellationToken ct)

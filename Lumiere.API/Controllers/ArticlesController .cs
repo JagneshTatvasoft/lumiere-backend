@@ -22,7 +22,7 @@ public class ArticlesController : BaseApiController
         _updateValidator = updateValidator;
     }
  
-    /// <summary>Get all articles with optional filtering and pagination.</summary>
+    /// <summary> Get all articles with optional filtering and pagination. </summary>
     [HttpGet]
     [AllowAnonymous]
     public async Task<IActionResult> GetAll([FromQuery] ArticleQueryParams queryParams, CancellationToken ct)
@@ -31,7 +31,7 @@ public class ArticlesController : BaseApiController
         return HandleResponse(result);
     }
  
-    /// <summary>Get a single article by ID.</summary>
+    /// <summary> Get a single article by ID. </summary>
     [HttpGet("{id:int}")]
     [AllowAnonymous]
     public async Task<IActionResult> GetById(int id, CancellationToken ct)
@@ -40,7 +40,7 @@ public class ArticlesController : BaseApiController
         return HandleResponse(result);
     }
  
-    /// <summary>Create an article (Admin only).</summary>
+    /// <summary> Create an article (Admin only).</summary>
     [HttpPost]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Create([FromBody] CreateArticleRequest request, CancellationToken ct)
@@ -66,7 +66,7 @@ public class ArticlesController : BaseApiController
         return HandleResponse(result);
     }
  
-    /// <summary>Soft-delete an article (Admin only).</summary>
+    /// <summary> Soft-delete an article (Admin only).</summary>
     [HttpDelete("{id:int}")]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Delete(int id, CancellationToken ct)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Lumiere.Domain;
 using Lumiere.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -52,6 +53,13 @@ public partial class LumiereJewelryDBContext : DbContext
 
             entity.HasOne(d => d.User).WithMany(p => p.FavoriteArticles).HasConstraintName("FK_Favorites_Users");
         });
+
+        modelBuilder.Entity<FavoriteArticle>()
+        .Property(x => x.ReactionType)
+        .HasConversion(
+            v => v == ReactionType.Like,                      // enum → bool (DB)
+            v => v ? ReactionType.Like : ReactionType.Dislike // bool → enum (C#)
+        );
 
         modelBuilder.Entity<Role>(entity =>
         {

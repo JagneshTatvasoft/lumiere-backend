@@ -8,7 +8,6 @@ public enum UserRole
  
 public enum ReactionType
 {
-    Like = 1,
-    Dislike = 0
+    Dislike = 0,
+    Like = 1
 }
- 

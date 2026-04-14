@@ -500,3 +500,11 @@ logs/
 
 # EF Core migrations temp files (optional safety)
 Migrations/*.Designer.cs
+
+
+appsettings.Development.json
+appsettings.Production.json
+
+# Visual Studio secrets
+*.user
+secrets.json
