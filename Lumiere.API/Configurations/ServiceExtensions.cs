@@ -91,13 +91,13 @@ public static class ServiceExtensions
         this IServiceCollection services,
         IConfiguration configuration)
     {
-        // var origins = configuration.GetSection("AllowedOrigins").Get<string[]>()
-        //               ?? new[] { "http://localhost:4200" };
+        var origins = configuration.GetSection("AllowedOrigins").Get<string[]>()
+                      ?? new[] { "http://localhost:4200" };
  
         services.AddCors(options =>
             options.AddPolicy("LumierePolicy", policy =>
                 policy
-                .AllowAnyOrigin()
+                // .AllowAnyOrigin()
                     // .WithOrigins(origins)
                     .AllowAnyHeader()
                     .AllowAnyMethod()
