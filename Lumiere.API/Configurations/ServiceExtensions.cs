@@ -97,8 +97,8 @@ public static class ServiceExtensions
         services.AddCors(options =>
             options.AddPolicy("LumierePolicy", policy =>
                 policy
-                .AllowAnyOrigin()
-                    // .WithOrigins(origins)
+                // .AllowAnyOrigin()
+                    .WithOrigins(origins)
                     .AllowAnyHeader()
                     .AllowAnyMethod()
                     .AllowCredentials()
