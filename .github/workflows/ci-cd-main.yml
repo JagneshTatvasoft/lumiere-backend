@@ -100,4 +100,4 @@ jobs:
       - name: Print staging URL
         run: |
           echo "Deployed to staging!"
-          echo "Test at: https://app-demo-kr-central-001-ccdgh4f3aqfreheq.koreacentral-01.azurewebsites.netDD"
+          echo "Test at: https://app-lumiere-staging-dwhvb7f9ftfjewbj.koreacentral-01.azurewebsites.net"
