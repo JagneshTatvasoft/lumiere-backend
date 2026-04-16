@@ -24,6 +24,7 @@ public class AuthService : IAuthService
 
     public async Task<ApiResponse<AuthResponse>> LoginAsync(LoginRequest request, CancellationToken ct = default)
     {
+        
         var user = await _uow.Users.GetByEmailAsync(request.Email, ct);
         if (user == null || user.IsDeleted)
             return ApiResponse<AuthResponse>.Fail("Invalid email or password.");
