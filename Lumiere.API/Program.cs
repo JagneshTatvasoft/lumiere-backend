@@ -37,7 +37,7 @@ if (app.Environment.IsDevelopment())
         c.RoutePrefix = "swagger";
     });
 }
-
+app.UseRouting();
 app.UseHttpsRedirection();
 app.UseCors("LumierePolicy");
 app.UseAuthentication();
