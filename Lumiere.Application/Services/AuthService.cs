@@ -25,16 +25,16 @@ public class AuthService : IAuthService
     public async Task<ApiResponse<AuthResponse>> LoginAsync(LoginRequest request, CancellationToken ct = default)
     {
         
-        var user = await _uow.Users.GetByEmailAsync(request.Email, ct);
+        User? user = await _uow.Users.GetByEmailAsync(request.Email, ct);
         if (user == null || user.IsDeleted)
             return ApiResponse<AuthResponse>.Fail("Invalid email or password.");
 
         if (!BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
             return ApiResponse<AuthResponse>.Fail("Invalid email or password.");
 
-        var userWithRole = await _uow.Users.GetWithRoleAsync(user.Id, ct);
-        var token = _tokenService.GenerateToken(user.Id, user.Email, userWithRole!.Role.Name);
-        var expires = _tokenService.GetExpiration();
+        User? userWithRole = await _uow.Users.GetWithRoleAsync(user.Id, ct);
+        string token = _tokenService.GenerateToken(user.Id, user.Email, userWithRole!.Role.Name);
+        DateTime expires = _tokenService.GetExpiration();
 
         return ApiResponse<AuthResponse>.Ok(new AuthResponse
         {
