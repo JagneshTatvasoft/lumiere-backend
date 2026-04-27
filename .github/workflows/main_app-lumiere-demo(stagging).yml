@@ -32,7 +32,6 @@ jobs:
       - name: Run Integration Tests 
         run: dotnet test --configuration Release --no-build --filter "Category=Integration" --logger trx
       
-
       - name: dotnet publish
         run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
 
