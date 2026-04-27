@@ -46,15 +46,15 @@ public class AuthService : IAuthService
 
     public async Task<ApiResponse<AuthResponse>> RegisterAsync(RegisterRequest request, CancellationToken ct = default)
     {
-        var exists = await _uow.Users.ExistsAsync(u => u.Email == request.Email && !u.IsDeleted, ct);
+        bool exists = await _uow.Users.ExistsAsync(u => u.Email == request.Email && !u.IsDeleted, ct);
         if (exists)
             return ApiResponse<AuthResponse>.Fail("Email is already registered.");
 
-        var userRole = await _uow.Roles.GetByNameAsync("User", ct);
+        Role? userRole = await _uow.Roles.GetByNameAsync("User", ct);
         if (userRole == null)
             return ApiResponse<AuthResponse>.Fail("Role configuration error.");
 
-        var user = new User
+        User user = new User
         {
             Name = request.Name,
             Email = request.Email,
@@ -67,8 +67,8 @@ public class AuthService : IAuthService
         await _uow.Users.AddAsync(user, ct);
         await _uow.SaveChangesAsync(ct);
 
-        var savedUser = await _uow.Users.GetWithRoleAsync(user.Id, ct);
-        var token = _tokenService.GenerateToken(user.Id, user.Email, savedUser!.Role.Name);
+        User? savedUser = await _uow.Users.GetWithRoleAsync(user.Id, ct);
+        string? token = _tokenService.GenerateToken(user.Id, user.Email, savedUser!.Role.Name);
 
         return ApiResponse<AuthResponse>.Ok(new AuthResponse
         {
