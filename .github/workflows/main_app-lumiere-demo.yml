@@ -35,9 +35,39 @@ jobs:
           name: .net-app
           path: ${{env.DOTNET_ROOT}}/myapp
 
-  deploy:
+  test:
     runs-on: windows-latest
     needs: build
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.x'
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Run ALL tests
+        run: |
+          dotnet test \
+            --configuration Release \
+            --verbosity normal \
+            --logger "trx;LogFileName=results.trx"
+
+      - name: Publish test results
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: Test Results
+          path: '**/TestResults/*.trx'
+          reporter: dotnet-trx
+          
+  deploy:
+    runs-on: windows-latest
+    needs: test
     permissions:
       id-token: write #This is required for requesting the JWT
       contents: read #This is required for actions/checkout
