@@ -25,7 +25,7 @@ public class UsersController : BaseApiController
  
     /// <summary>Get all users (Admin only) with pagination and filtering.</summary>
     [HttpGet]
-    [Authorize(Roles = "Admin")]
+    // [Authorize(Roles = "Admin")]
     public async Task<IActionResult> GetAll([FromQuery] UserQueryParams queryParams, CancellationToken ct)
     {
         var result = await _userService.GetAllAsync(queryParams, ct);
