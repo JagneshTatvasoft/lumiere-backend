@@ -51,11 +51,7 @@ jobs:
         run: dotnet restore
 
       - name: Run ALL tests
-        run: |
-          dotnet test \
-            --configuration Release \
-            --verbosity normal \
-            --logger "trx;LogFileName=results.trx"
+        run: dotnet test --configuration Release --verbosity normal --logger "trx;LogFileName=results.trx"
 
       - name: Publish test results
         uses: dorny/test-reporter@v1
