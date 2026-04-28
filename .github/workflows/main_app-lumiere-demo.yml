@@ -34,6 +34,7 @@ jobs:
         with:
           name: .net-app
           path: ${{env.DOTNET_ROOT}}/myapp
+          
   test:
     runs-on: windows-latest
     needs: build
@@ -62,7 +63,7 @@ jobs:
 
   deploy:
     runs-on: windows-latest
-    needs: build
+    needs: test
     permissions:
       id-token: write #This is required for requesting the JWT
       contents: read #This is required for actions/checkout
