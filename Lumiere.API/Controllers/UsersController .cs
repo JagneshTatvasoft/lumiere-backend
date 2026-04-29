@@ -28,9 +28,9 @@ public class UsersController : BaseApiController
     // [Authorize(Roles = "Admin")]
     public async Task<IActionResult> GetAll([FromQuery] UserQueryParams queryParams, CancellationToken ct)
     {
-        return StatusCode(503, new { message = "Feature temporarily unavailable" });
-        // var result = await _userService.GetAllAsync(queryParams, ct);
-        // return HandleResponse(result);
+        // return StatusCode(503, new { message = "Feature temporarily unavailable" });
+        var result = await _userService.GetAllAsync(queryParams, ct);
+        return HandleResponse(result);
     }
 
 
