@@ -34,7 +34,7 @@ jobs:
         with:
           name: .net-app
           path: ${{env.DOTNET_ROOT}}/myapp
-          
+
   test:
     runs-on: windows-latest
     needs: build
@@ -53,6 +53,7 @@ jobs:
       - name: Run ALL tests
         run: dotnet test --configuration Release --verbosity normal --logger "trx;LogFileName=results.trxx"
 
+
   deploy:
     runs-on: windows-latest
     needs: test
@@ -69,9 +70,9 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_C9DCC4452DAC48E4A5E3A06040E4B5BB }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_663F08D34E9643958569546CB9C2FF0A }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_B54CA07378F04138A7D6C70E750199E6 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_E79125AA0C71467483864416682389C7 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_683B6D3041CC4EECA41C6F30584D6F66 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_A1AA10B5B8C04400A50C0DD79CACF65F }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
